@@ -1,0 +1,369 @@
+<html><head>
+  <title>INFO 4310/5311: Homework 1</title>
+  
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;600;700;800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+  
+    .neighborhood {
+      fill: none;
+      stroke: #CCC;
+      stroke-width: 1px;
+    }
+    body {
+      margin: 50 100 200 150;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    p {
+      font-weight: 300;
+      font-size: 1.1em;
+      line-height: 1.5em;
+    }
+    h1 {
+      font-family: 'Roboto Condensed', sans-serif;    
+      font-weight: 900;
+      font-size: 4.5em;
+      margin: 0 0 20 0;
+      padding: 0;
+      line-height: 1.05em;
+    }
+    h2 {
+      font-family: 'Roboto Condensed', sans-serif;    
+      font-weight: 500;
+      font-size: 1.7em;
+      margin: 0 0 40 0;
+      padding: 0;
+    }
+    h3 {
+
+    }
+    .gridlines line {
+          stroke: #bbb;
+        }
+  
+        .gridlines .domain {
+          stroke: none;
+        }
+        
+        .state {
+          fill: lightgrey;
+        }
+        .outline {
+          stroke: black;
+          stroke-width: 1px;
+          fill: none;
+        }
+        .graticule {
+          fill: none;
+          stroke: #777;
+        }
+    </style>
+  
+  </head>
+  <body>
+    <div class="container larger">
+      <div style="width: 800px">
+        <h1>The Great<br>San Francisco<br>Palm Controversy</h1>
+        <h2>Residents debate the merits of planting palm trees to beautify their city</h2>
+        <p>
+          The 1989 Loma Prieta earthquake shook the San Francisco Bay Area killing 63 people, injuring 3,757, 
+          and causing an estimated $7 billion in property damage. This 5.9 magnitude earthquake is considered the 
+          worst disaster to hit San Francisco since the great earthquake of 1906.
+        </p>
+        <p>
+          From 1990 to 2006, the City of San Francisco released $1.9 million to purchase and plant hundreds of
+          palm trees along major thoroughfares and the marina. Residents contested the 
+          city's choice to plant so many palms. Concerns included planting so many non-native and potentially 
+          fragile sunloving trees in Northen California, the relative lack of shade provided by palms compared 
+          to leafier trees, and a desire to be distinct from their Southern California neighbors.
+        </p>
+      </div>
+      
+      <!-- HISTOGRAM: Trees planted by year -->
+      <div style="margin-top: 60px;">
+        <h3>Timeline of Trees Planted in San Francisco (1980-2006)</h3>
+        <svg id="allTreeHistogram" height="400" width="795" >        
+        
+        </svg>
+      </div>
+
+      <!-- SCATTERPLOT 
+      <div style="margin-top: 60px;">
+        <h3>Timeline of Trees Planted in San Francisco (1980-2006)</h3>
+        <svg id="scatterplot" height="400" width="795" >        
+        
+        </svg>
+      </div>-->
+
+      <!-- MAP: Palm trees in San Francisco  
+      <div style="margin-top: 60px;">
+        <h3>Map of Palm Trees in San Francisco</h3>
+        <svg id="palmTrees" height="800" width="800" style="background: #fff" >
+    
+        </svg>
+      </div>-->
+
+      <!-- SOURCES  -->
+      <div style="margin-top: 60px;">
+        <h3>Sources</h3>
+      </div>
+
+
+
+
+    <!-- SCRIPT: HISTOGRAM -->
+    <script id="notes1">
+
+      // CONTAINER
+      const allChart = d3.select("svg#allTreeHistogram");
+      const allWidth = allChart.attr("width");
+      const allHeight = allChart.attr("height");
+      const allMargin = {top: 10, right: 10, bottom: 50, left: 50};
+      const allChartWidth = allWidth - allMargin.left - allMargin.right;
+      const allChartHeight = allHeight - allMargin.top - allMargin.bottom;
+
+      // DATA: All trees in San Francisco
+      // const allTrees = await d3.csv("allTrees-01.csv");
+
+      // Parse the Data
+      d3.csv("allTrees-01.csv").then( function(data) {
+
+      // X axis
+      const x = d3.scaleBand()
+        .range([ 0, allWidth ])
+        .domain(data.map(d => d.year))
+        .padding(0.2);
+      allChart.append("g")
+        .attr("transform", `translate(0, ${allHeight})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+          .attr("transform", "translate(-10,0)rotate(-45)")
+          .style("text-anchor", "end");
+
+      // Add Y axis
+      const y = d3.scaleLinear()
+        .domain([0, 13000])
+        .range([ allHeight, 0]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+
+      // Bars
+      svg.selectAll("mybar")
+        .data(data)
+        .join("rect")
+          .attr("x", d => x(d.year))
+          .attr("y", d => y(d.Value))
+          .attr("width", x.bandwidth())
+          .attr("height", d => height - y(d.Value))
+          .attr("fill", "#69b3a2")
+      })
+
+    </script>
+    
+    <!-- SCRIPT: PALM TREE MAP 
+    <script id="notes2">
+  
+      const PALMsvg = d3.select("svg#palmTrees");
+      const width = PALMsvg.attr("width");
+      const height = PALMsvg.attr("height");
+      const margin = { top: 0, right: 20, bottom: 20, left:20};
+      const mapWidth = width - margin.left - margin.right;
+      const mapHeight = height - margin.top - margin.bottom;
+      const map = PALMsvg.append("g")
+                      .attr("transform","translate("+margin.left+","+margin.top+")");
+
+      // Create visualization
+      const requestData = async function() {
+      
+        // JSON
+        const sf = await d3.json("SF-Neighborhoods.json");
+        console.log(sf);
+        
+        // SFNeighborhoods property in objects
+        var neighborhoods = topojson.feature(sf, sf.objects.SFNeighborhoods);
+        
+        //  MAP PROJECTION: Mercator; latitude lines flat
+        var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], neighborhoods);
+        var path = d3.geoPath().projection(projection);
+        
+        // Draw neighborhoods
+        map.selectAll("path.neighborhood").data(neighborhoods.features)
+          .join("path")
+          .attr("class", "neighborhood")
+          .attr("d", path);
+                  
+        // DATA: Palm trees in San Francisco
+        const trees = await d3.csv("palmTrees-03.csv");
+      
+        // Process data to position dots
+        trees.forEach( d => {
+          
+          // Use the projection just like a scale to convert from lng/lat to pixels
+          d.Position = projection( [d.Longitude, d.Latitude] );
+        
+      });
+      
+      // Draw circles using the Positions
+      map.selectAll("circle").data(trees)
+         .join("circle")
+         .attr("r", 2)
+         .attr("fill", "forestgreen")
+         .attr("opacity", 0.4)
+         .attr("cx", d => d.Position[0])
+         .attr("cy", d => d.Position[1]);
+      
+    }
+    requestData();
+    
+  </script>
+  -->
+  
+  <!-- SCRIPT: SCATTERPLOT -->
+  <script id="notes3">
+    
+    // scatterplot
+    const scatter = d3.select("svg#scatterplot");
+    const scatterWidth = scatter.attr("width");
+    const scatterHeight = scatter.attr("height");
+    const scatterMargin = {top: 10, right: 10, bottom: 50, left: 50};
+    const chartWidth = scatterWidth - scatterMargin.left - scatterMargin.right;
+    const chartHeight = scatterHeight - scatterMargin.top - scatterMargin.bottom;
+  
+    // We use <g> tags to make sure the points sit above the axis labels
+    let annotations = scatter.append("g").attr("id","annotations");
+                    // No translate here since our annotations may be outside of the chart area
+                    
+    let chartArea = scatter.append("g").attr("id","points")
+                    .attr("transform","translate("+scatterMargin.left+","+scatterMargin.top+")");
+  
+    // Using an async function allows us to use "await" when handling promises
+    // This is a lot more convenient than using .then() in my opinion
+    const loadScatter = async function() {
+        
+        // DATA
+        let dataset = await d3.csv("datasets/blockbusters.csv", d3.autoType )
+        
+        // Check for data issues
+        dataset.forEach( d => {
+        d['worldwide_gross'] = Number( d['worldwide_gross'].replace(/,/g, "").replace(/\$/g,"") );
+        });
+        console.log(dataset);
+  
+        // SCALES
+        const yearExtent = d3.extent(dataset, d => d['year']);
+        const yearScale = d3.scaleLinear().domain(yearExtent).range([0, chartWidth]);
+        
+        const grossExtent = d3.extent(dataset, d => d['worldwide_gross']);
+        const grossScale = d3.scaleLog().domain(grossExtent).range([chartHeight, 0]);
+        
+        const imdbExtent = d3.extent(dataset, d => d['imdb_rating']);
+        const imdbScale = d3.scaleLinear().domain(imdbExtent).range([3,8]);
+  
+        const genreScale = d3.scaleOrdinal(d3.schemeCategory10);
+        
+        // 2. Draw some axes, make them fancy through using tickFormat
+        //    Look at the documentation for d3.format to see all of the different options
+        //       d3 tickformatting: https://github.com/d3/d3-format
+        
+        // Y axis
+        let leftAxis = d3.axisLeft(grossScale)
+                        .tickFormat(d3.format("$.0s"));  // shorter scientific notation with a dollar sign in front
+        let leftGridlines = d3.axisLeft(grossScale)
+                            .tickSize(-chartWidth-10)    // extra -10 is to account for lines 147, 151
+                            .tickFormat("")
+        
+        annotations.append("g")
+          .attr("class", "y axis")
+          .attr("transform",`translate(${scatterMargin.left-10},${scatterMargin.top})`) // Use a backtick ` to do string templating
+          .call(leftAxis)                                                 //  -10 here is to make some space in corner
+        annotations.append("g")
+          .attr("class", "y gridlines")
+          .attr("transform",`translate(${scatterMargin.left-10},${scatterMargin.top})`)
+          .call(leftGridlines);
+        
+        // X axis
+        let bottomAxis = d3.axisBottom(yearScale)
+                            .tickFormat(d3.format("~f"));  // exact value without commas
+        let bottomGridlines = d3.axisBottom(yearScale)
+                                .tickSize(-chartHeight-10)
+                                .tickFormat("")
+
+        annotations.append("g")
+          .attr("class", "x axis")
+          .attr("transform",`translate(${scatterMargin.left},${chartHeight+scatterMargin.top+10})`)
+          .call(bottomAxis);
+        annotations.append("g")
+          .attr("class", "x gridlines")
+          .attr("transform",`translate(${scatterMargin.left},${chartHeight+scatterMargin.top+10})`)
+          .call(bottomGridlines);
+        
+        // 3. PLOT CIRCLES
+        // We will use a d3 data join -- see d3 docs if this is unfamiliar
+        let circles = chartArea.selectAll("circle.point").data(dataset)
+                                .join("circle")
+                                .attr("class", "point")
+                                .attr("label", d => d["title"])
+                                .attr("genre", d => d["Main_Genre"])
+                                .attr("opacity", 0.8)
+                                .attr("cx", d => yearScale(d['year']))
+                                .attr("cy", d => grossScale(d['worldwide_gross']+1))
+                                .attr("r", d => imdbScale(d['imdb_rating']))
+                                .attr("fill", d => genreScale(d['Main_Genre']) ); 
+                   
+        // 5. MOUSEOVERS
+        //  Mouseover triggers when mouse enters object's region
+        //  Mouseout triggers when mouse leaves the object's region
+        //  WARNING: Avoid placing new elements on top of an object when using mouseover
+        //           This can cause the two objects to fight, creating oscillating patterns
+        circles.on("mouseover", function(event, d) {
+            
+            d3.select(this)
+            .transition().duration(200)
+            .attr("stroke","black")
+            .attr("stroke-width", 4)
+            .attr("fill", lighten( genreScale(d['Main_Genre']) )) ;
+            
+            d3.select("#label").text(d['title']);
+            
+        });
+        // Make sure to clean up effects on mouseout
+        circles.on("mouseout", function(event, d) {
+            
+            d3.select(this)
+            .transition().duration(200)
+            .attr("stroke","")
+            .attr("stroke-width", 1)
+            .attr("fill", genreScale(d['Main_Genre']) );
+            
+            d3.select("#label").text("");
+        });
+            
+    }
+    loadScatter();
+    
+  
+    // HELPER FUNCTION
+    //  lighten a color a little bit using d3 color functions
+    function lighten(color) {
+        
+        let hclColor = d3.hcl(color);
+        let luma = Math.min(130, hclColor.l + 30);
+        return d3.rgb( d3.hcl( hclColor.h, hclColor.c, luma ) );
+        
+    }
+    
+    </script>
+    
+  
+    
+  
+    </div>
+  </body>
+  </html>
+  

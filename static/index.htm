@@ -1,124 +1,357 @@
 <html><head>
-<title>INFO 3300 - March 9</title>
-
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
-  <link rel="stylesheet" type="text/css" href="../css/custom-style.css">
-
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/default.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://d3js.org/topojson.v2.min.js"></script>
-  <style>
-
-  .neighborhood {
-    fill: #EEE;
-    stroke: white;
-    stroke-width: 2px;
-  }
-
-  </style>
-
-</head>
-<body>
-  <div class="container larger">
-    <p> A map of SF trees: This is a test v4.</p>
-  <svg id="points" height="900" width="900" style="background: #fff; margin-top:50px" >
-
-  </svg>
-
-
-
-  <script id="notes1">
-
-  const svg = d3.select("#points");
-  const width = svg.attr("width");
-  const height = svg.attr("height");
-  const margin = { top: 20, right: 20, bottom: 20, left:20};
-  const mapWidth = width - margin.left - margin.right;
-  const mapHeight = height - margin.top - margin.bottom;
-  const map = svg.append("g")
-                  .attr("transform","translate("+margin.left+","+margin.top+")");
-
-  // Let's make a map of all of the municipal trees in San Francisco
-  // With any luck, we ought to be able to visualize the streets/blocks in the city, since trees line them
-  //   (this is really just an excuse to make a lot of dots)
+  <title>INFO 4310/5311: Homework 1</title>
   
-  // Datasets for today:
-  //  "../datasets/SF-Neighborhoods.json"
-  //  "../datasets/Street_Tree_List_smaller.csv"
-
-
-  // 1. Make the visualization
-  //  (refer to 03/04 notes for more comments)
-  const requestData = async function() {
-    
-    const sf = await d3.json("./SF-Neighborhoods.json");
-    console.log(sf);
-    
-    // We find that the feature we want to visualize is the SFNeighborhoods property within objects
-    //  Always search .objects for different features to show in a topoJSON dataset
-    var neighborhoods = topojson.feature(sf, sf.objects.SFNeighborhoods);
-    
-    // We use Mercator projection instead of a "better" projection because it's more familiar
-    // It also leads to a flat line on the bottom of the city due to how the projection makes all
-    //  latitude lines flat (which allows rhumb line equivalency)
-    var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], neighborhoods);
-    var path = d3.geoPath().projection(projection);
-    
-    // Draw neighborhoods
-    // Just as in our line generators, the scale is used by the generator to take complex data and
-    //  generate fancy paths
-    map.selectAll("path.neighborhood").data(neighborhoods.features)
-      .join("path")
-      .attr("class", "neighborhood")
-      .attr("d", path);
-      
-      
-    const trees = await d3.csv("./Street_Tree_List_smaller.csv");
-    
-    
-    // We need to figure out where to position the dots. Since we may have a lot of them, let's process
-    //  the data ahead of time and add to our dict
-    // (Main reason for doing this is that otherwise we would have to call projection() twice, once
-    //    for 'cx' and once for 'cy')
-    trees.forEach( d => {
-      
-      // Use the projection just like a scale to convert from lng/lat to pixels
-      d.Position = projection( [d.Longitude, d.Latitude] );
-      
-    });
-    
-    // Draw circles using the Positions we just made
-    map.selectAll("circle").data(trees)
-       .join("circle")
-       .attr("r", 1)
-       .attr("fill", "forestgreen")
-       .attr("opacity", 0.4)
-       .attr("cx", d => d.Position[0])
-       .attr("cy", d => d.Position[1]);
-    
-    
-    
-  }
-  requestData();
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;600;700;800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
   
+    .neighborhood {
+      fill: none;
+      stroke: #CCC;
+      stroke-width: 1px;
+    }
+    body {
+      margin: 0 100 200 150;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    p {
+      font-weight: 300;
+      font-size: 1.1em;
+      line-height: 1.5em;
+    }
+    h1 {
+      font-family: 'Roboto Condensed', sans-serif;    
+      font-weight: 900;
+      font-size: 4.5em;
+      margin: 0 0 20 0;
+      padding: 0;
+      line-height: 1.05em;
+    }
+    h2 {
+      font-family: 'Roboto Condensed', sans-serif;    
+      font-weight: 500;
+      font-size: 1.7em;
+      margin: 0 0 40 0;
+      padding: 0;
+    }
+    h3 {
+
+    }
+
+    </style>
   
+  </head>
+  <body>
+    <div class="container larger">
+        <div style="width: 1300px;">
+            <img src="embarcadero.jpg" style="width: 1300px;">
+            <p style="margin-top:5px;text-align:right;">Ferry Building, 249 The Embarcadero, San Francisco, CA</p>
+        </div>
+        <div style="width: 800px">
+        <h1>The Great San Francisco Palm Controversy</h1>
+        <h2>Residents debate the merits of planting palm trees to beautify their city</h2>
+        <p>
+            The 1989 Loma Prieta earthquake shook the San Francisco Bay Area killing 63 people, injuring 3,757, 
+            and causing an estimated $7 billion in property damage. This 5.9 magnitude earthquake is considered 
+            the worst disaster to hit San Francisco since the great earthquake of 1906.
+        </p>
+        <p>
+            From 1990 to 2006, the City of San Francisco authorized $1.9 million to plant trees including hundreds 
+            of palm trees along major thoroughfares and the eastern shorefront. In 2004, Mayor Newsom 
+            launched the "Trees for Tomorrow" campaign pledging to plant 25,000 new trees in five years.
+        </p>
+        <p>    
+            Residents who contested the city's choice to plant palms protested the dangers of planting so many 
+            non-native sunloving trees in Northen California, the lack of shade provided by palms, and 
+            the concern that San Francisco would lose its distinctiveness by emulating Southern California cities.
+        </p>
+        <p>
+            In contrast, other residents 
+        </p>
+        <p>
+            The graphics below display the increase in recorded tree plantings after 1989. However, there seeems 
+            to be a discrepancy between the recorded number of palm trees planted with the reports from the press.
+        </p>
+      </div>
+      
+      <!-- HISTOGRAM: Trees planted by year -->
+      <div style="margin-top: 60px;">
+        <h3>Annual Counts of All Trees Planted in San Francisco (1972-2022)</h3>
+        <svg id="allTreeHistogram" height="560" width="1300" >        
+            <!-- 1989 Loma Prieta -->
+            <line x1="472" y1="47" x2="472" y2="500" style="stroke:#DC381F;stroke-width:2" />
+            <circle cx="472" cy="47" r="5" stroke="#DC381F" stroke-width="2" fill="#DC381F" />
+            <text x="303" y="13" fill="#DC381F">Loma Prieta Earthquake</text>
+            <text x="352" y="33" fill="#DC381F">October 17, 1989</text>
+            <!-- 2004 Trees for Tomorrow -->
+            <line x1="830" y1="47" x2="830" y2="500" style="stroke:#DC381F;stroke-width:2" />
+            <circle cx="830" cy="47" r="5" stroke="#DC381F" stroke-width="2" fill="#DC381F" />
+            <rect width="121" height="400" x="843" y="60" fill="#4E9258" opacity=".2" />
+            <text x="641" y="13" fill="#DC381F">Mayor Newsom authorizes</text>
+            <text x="641" y="33" fill="#DC381F">Trees for Tomorrow (2004)</text>
+            <!-- 2015 Urban Forest Plan -->
+            <line x1="1097" y1="47" x2="1097" y2="500" style="stroke:#DC381F;stroke-width:2" />
+            <circle cx="1097" cy="47" r="5" stroke="#DC381F" stroke-width="2" fill="#DC381F" />
+            <rect width="121" height="400" x="843" y="60" fill="#4E9258" opacity=".2" />
+            <text x="910" y="13" fill="#DC381F">Board of Advisors approve</text>
+            <text x="920" y="33" fill="#DC381F">Urban Forest Plan (2015)</text>            
+        </svg>
+      </div>
+
+      <!-- HISTOGRAM: Palm trees planted by year -->
+      <div style="margin-top: 60px;">
+        <h3>Annual Counts of Palm Trees Planted in San Francisco (1972-2022)</h3>
+        <svg id="palmTreeHistogram" height="400" width="1300" >        
+        
+        </svg>
+      </div>
+
+      <!-- MAP: Palm trees in San Francisco -->
+      <div style="margin-top: 60px;">
+        <h3>Map of Palm Trees in San Francisco</h3>
+        <svg id="palmTrees" height="1100" width="1100" style="background: #fff" >
+    
+        </svg>
+      </div>
+
+      <!-- SOURCES  -->
+      <div style="margin-top: 60px;">
+        <h3>Sources</h3>
+        <ul>
+            <li>Article</li>
+            <li>Article</li>
+            <li>Article</li>
+            <li>Article</li>
+        </ul>
+      </div>
 
 
 
+    <!-- SCRIPT: ALL TREE COUNT HISTOGRAM -->
+    <script id="notes1">
 
+        // Declare chart dimensions and margins.
+        const allChart = d3.select("svg#allTreeHistogram");
+        const allWidth = allChart.attr("width");
+        const allHeight = allChart.attr("height");
+        const allMargin = {top: 60, right: 20, bottom: 40, left: 40};
+        const allChartWidth = allWidth - allMargin.left - allMargin.right;
+        const allChartHeight = allHeight - allMargin.top - allMargin.bottom;
+        
+        // loadAllTrees
+        const loadAllTrees = async function() {
+                
+            // DATA
+            let allTrees = await d3.csv("allTrees-04.csv", d3.autoType )
+
+            // Bin the data.
+            const bins = d3.bin()
+                .thresholds(50)
+                .value((d) => d.year)
+                (allTrees);
+
+            // Declare the x (horizontal position) scale.
+            const x = d3.scaleLinear()
+                .domain([bins[0].x0, bins[bins.length - 1].x1])
+                .range([allMargin.left, allWidth - allMargin.right]);
+
+            // Declare the y (vertical position) scale.
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(bins, (d) => d.length)])
+                .range([allHeight - allMargin.bottom, allMargin.top]);
+
+            // Create the SVG container.
+            const svg = d3.select("svg#allTreeHistogram")
+                .attr("width", allWidth)
+                .attr("height", allHeight)
+                .attr("viewBox", [0, 0, allWidth, allHeight])
+                .attr("style", "max-width: 100%; height: auto;");
+
+            // Add a rect for each bin.
+            svg.append("g")
+                .attr("fill", "#4E9258")<!-- green -->
+                .selectAll()
+                .data(bins)
+                .join("rect")
+                .attr("x", (d) => x(d.x0) + 1)
+                .attr("width", (d) => x(d.x1) - x(d.x0) - 1)
+                .attr("y", (d) => y(d.length))
+                .attr("height", (d) => y(0) - y(d.length));
+
+            // Add the x-axis and label.
+            svg.append("g")
+                .attr("transform", `translate(0,${allHeight - allMargin.bottom + 5})`)
+                .call(d3.axisBottom(x).ticks(allWidth / 60).tickSizeOuter(0))
+                .call((g) => g.append("text")
+                    .attr("x", allWidth)
+                    .attr("y", allMargin.bottom - 5)
+                    .attr("fill", "currentColor")
+                    .attr("text-anchor", "end")
+                    .text("Year Planted"));
+
+            // Add the y-axis and label, and remove the domain line.
+            svg.append("g")
+                .attr("transform", `translate(${allMargin.left - 5},0)`)
+                .call(d3.axisLeft(y).ticks(allHeight / 40))
+                .call((g) => g.select(".domain").remove())
+                .call((g) => g.append("text")
+                    .attr("x", -allMargin.left + 5)
+                    .attr("y", 10)
+                    .attr("fill", "currentColor")
+                    .attr("text-anchor", "start")
+                    .text("Number of Plantings"));
+
+        }
+        loadAllTrees();
+
+    </script>
+    
+
+    <!-- SCRIPT: PALM TREE COUNT HISTOGRAM -->
+    <script id="notes2">
+
+        // Declare chart dimensions and margins.
+        const palmChart = d3.select("svg#allTreeHistogram");
+        const palmWidth = allChart.attr("width");
+        const palmHeight = allChart.attr("height");
+        const palmMargin = {top: 20, right: 20, bottom: 40, left: 40};
+        const palmChartWidth = palmWidth - palmMargin.left - palmMargin.right;
+        const palmChartHeight = palmHeight - palmMargin.top - palmMargin.bottom;
+        
+        // loadAllTrees
+        const loadPalmTrees = async function() {
+                
+            // DATA
+            let allTrees = await d3.csv("palmTrees-03.csv", d3.autoType )
+
+            // Bin the data.
+            const bins = d3.bin()
+                .thresholds(50)
+                .value((d) => d.year)
+                (allTrees);
+
+            // Declare the x (horizontal position) scale.
+            const x = d3.scaleLinear()
+                .domain([bins[0].x0, bins[bins.length - 1].x1])
+                .range([palmMargin.left, palmWidth - palmMargin.right]);
+
+            // Declare the y (vertical position) scale.
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(bins, (d) => d.length)])
+                .range([palmHeight - palmMargin.bottom, palmMargin.top]);
+
+            // Create the SVG container.
+            const svg = d3.select("svg#palmTreeHistogram")
+                .attr("width", palmWidth)
+                .attr("height", palmHeight)
+                .attr("viewBox", [0, 0, palmWidth, palmHeight])
+                .attr("style", "max-width: 100%; height: auto;");
+
+            // Add a rect for each bin.
+            svg.append("g")
+                .attr("fill", "#4E9258") // Medium forest green: #347235
+                .selectAll()
+                .data(bins)
+                .join("rect")
+                .attr("x", (d) => x(d.x0) + 1)
+                .attr("width", (d) => x(d.x1) - x(d.x0) - 1)
+                .attr("y", (d) => y(d.length))
+                .attr("height", (d) => y(0) - y(d.length));
+
+            // Add the x-axis and label.
+            svg.append("g")
+                .attr("transform", `translate(0,${palmHeight - palmMargin.bottom + 5})`)
+                .call(d3.axisBottom(x).ticks(allWidth / 80).tickSizeOuter(0))
+                .call((g) => g.append("text")
+                    .attr("x", palmWidth)
+                    .attr("y", palmMargin.bottom - 5 )
+                    .attr("fill", "currentColor")
+                    .attr("text-anchor", "end")
+                    .text("Year Planted"));
+
+            // Add the y-axis and label, and remove the domain line.
+            svg.append("g")
+                .attr("transform", `translate(${palmMargin.left - 5},0)`)
+                .call(d3.axisLeft(y).ticks(palmHeight / 60))
+                .call((g) => g.select(".domain").remove())
+                .call((g) => g.append("text")
+                    .attr("x", -palmMargin.left)
+                    .attr("y", 10)
+                    .attr("fill", "currentColor")
+                    .attr("text-anchor", "start")
+                    .text("Number of Plantings"));
+
+        }
+        loadPalmTrees();
+
+    </script>
+    
+    
+    <!-- SCRIPT: PALM TREE MAP  -->
+    <script id="notes3">
+  
+      const PALMsvg = d3.select("svg#palmTrees");
+      const width = PALMsvg.attr("width");
+      const height = PALMsvg.attr("height");
+      const margin = { top: 0, right: 20, bottom: 20, left:20};
+      const mapWidth = width - margin.left - margin.right;
+      const mapHeight = height - margin.top - margin.bottom;
+      const map = PALMsvg.append("g")
+                      .attr("transform","translate("+margin.left+","+margin.top+")");
+
+      // Create visualization
+      const requestData = async function() {
+      
+        // JSON
+        const sf = await d3.json("SF-Neighborhoods.json");
+        console.log(sf);
+        
+        // SFNeighborhoods property in objects
+        var neighborhoods = topojson.feature(sf, sf.objects.SFNeighborhoods);
+        
+        //  MAP PROJECTION: Mercator; latitude lines flat
+        var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], neighborhoods);
+        var path = d3.geoPath().projection(projection);
+        
+        // Draw neighborhoods
+        map.selectAll("path.neighborhood").data(neighborhoods.features)
+          .join("path")
+          .attr("class", "neighborhood")
+          .attr("d", path);
+                  
+        // DATA: Palm trees in San Francisco
+        const trees = await d3.csv("palmTrees-02.csv");
+      
+        // Process data to position dots
+        trees.forEach( d => {
+          
+          // Use the projection just like a scale to convert from lng/lat to pixels
+          d.Position = projection( [d.Longitude, d.Latitude] );
+        
+      });
+      
+      // Draw circles using the Positions
+      map.selectAll("circle").data(trees)
+         .join("circle")
+         .attr("r", 3)
+         .attr("fill", "#347235")
+         .attr("opacity", 0.5)
+         .attr("cx", d => d.Position[0])
+         .attr("cy", d => d.Position[1]);
+      
+    }
+    requestData();
+    
   </script>
-
-
-
-
-
+    
   
-
-  </div>
-</body>
-</html>
+    </div>
+  </body>
+  </html>
+  
