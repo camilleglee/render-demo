@@ -55,6 +55,7 @@
         }
         h4 {
             font-size: 1.4em;
+            margin: 0;
         }
         hr {
             border-top: 3px solid #264116;width:40%;margin-top: 35; margin-bottom: 30;
@@ -100,33 +101,34 @@
             <div class="articleContainer">
                 <h1>The Great<br>San Francisco<br>Palm Controversy</h1>
                 <h2>Residents debate the merits of planting palm trees after the 1989 Loma Prieta earthquake</h2>
-                <div style="margin-left: 190px">
+                <div style="margin-left: 170px">
                     <p>
                         In 1989, the Loma Prieta earthquake shook San Francisco killing 63 people, injuring 3,757, 
                         and causing an estimated $7 billion in property damage. This 5.9 magnitude earthquake is considered 
                         the worst disaster to hit San Francisco since the great earthquake of 1906.
                     </p>
                     <p>
-                        Part of the effort to rebuild San Francisco included planting trees. From 1990 to 2006,  
-                        the City of San Francisco planted thousands of trees including hundreds 
-                        of palms along major thoroughfares and the eastern shorefront. In 2004, Mayor Newsom 
+                        Part of the effort to rebuild San Francisco included planting trees. <strong>Figure 2</strong> displays 
+                        the number of trees planted from 1972 to 2022. (See warning below.) From 1990 to 2006, it has been reported 
+                        in the media that the City of San Francisco planted thousands of trees including hundreds of palms along 
+                        major thoroughfares and the eastern shorefront to beautify the city. In 2004, Mayor Newsom 
                         launched the "Trees for Tomorrow" campaign pledging to plant 25,000 new trees within five years. 
                         In 2015, the city renewed it's commitment to urban forestry when the Board of Advisors authorized a 
                         comprehensive Urban Forest Plan.
                     </p>
                     <p>    
-                        Some residents contested the city's choice to plant palms citing the dangers of planting so many 
+                        Some residents contested the city's choice to plant palms by citing the dangers of planting so many 
                         sunloving trees in Northen California, the lack of shade provided by palms, and 
                         the concern that San Francisco would lose its distinctiveness by emulating Southern California cities. 
                         In contrast, other residents were delighted to see palms in the city.
                     </p>
                     <hr>
-                    <h3>Notes about the data</h3>
+                    <h3>Warning about the data:</h3>
                     <p style="color: #264116;margin-top:5;">
                         <strong>Figure 1</strong> maps all the palm trees listed in San Francisco's Street Tree List. 
-                        However, it seems that the database has incomplete data for the dates on which palm
-                        trees have been planted. There is a discrepancy between the reported number of new palms 
-                        planted since 1990 versus the number of listed with date of planting.
+                        The different marks indicate whether a palm has a date of planting or not. The database is missing the 
+                        date of planting for most palms. Without this data, it is not possible to determine the number of new 
+                        palms planted by year (<strong>Figure 3</strong>).
                     </p>
                 </div>
             </div>
@@ -143,9 +145,9 @@
                     <text x="78" y="780" style="font-size: 1.4em;">Figure 1: All palm trees in San Francisco</text>
                     <!-- Legend -->
                     <circle cx="87" cy="720" r="8" fill="#264116" />
-                    <text x="105" y="726" fill="black">Palm trees with plant date</text>
+                    <text x="105" y="726" fill="black">Palms with planting date</text>
                     <circle cx="330" cy="720" r="6" fill="#4E9258" />
-                    <text x="348" y="726" fill="black">Palm trees without plant date</text>  
+                    <text x="346" y="726" fill="black">Palms without planting date</text>  
                 </svg>
             </div>
         </div>
@@ -155,6 +157,7 @@
          --------------------------- -->
     <div class="allTreeContainer">
         <h4>Figure 2: Annual Counts of All Trees Planted in San Francisco (1972-2022)</h4>
+        <p>NOTE: This data only charts the trees in the Street Tree List with a date of planting. Most trees do note have a date of planting.</p>
         <svg id="allTreeHistogram" height="560" width="1300" >       
             <!-- 1989 Loma Prieta -->
             <text x="472" y="13" fill="#DC381F">Loma Prieta Earthquake</text>
@@ -189,6 +192,7 @@
          ---------------------------- -->      
     <div class="palmTreeContainer">
         <h4>Figure 3: Annual Counts of Palm Trees Planted in San Francisco (1972-2022)</h4>
+        <p>Due to missing planting dates the histogram below undercounts the number of palms planted in the city.</p>
         <svg id="palmTreeHistogram" height="300" width="1300" >        
         
         </svg>
@@ -196,17 +200,20 @@
 
     <!-- SOURCES -->
     <div class="sourceContainer">
-    <h4>Related Links</h4>
-    <ul>
-        <li>Loma Prieta: Looking Back on the Earthquake 33 Years Later
-            (<a href="https://www.nbcbayarea.com/news/local/loma-prieta-earthquake-33-years-later/3032484/">https://www.nbcbayarea.com/news/local/loma-prieta-earthquake-33-years-later/3032484/</a>)</li>
-        <li>Market Street palm trees start to do damage (<a href="https://abc7news.com/archive/6338096/">https://abc7news.com/archive/6338096/</a>)</li>
-            <li>PALMS POP UP ALL OVER S.F. (<a href="https://www.sfgate.com/news/article/PALMS-POP-UP-ALL-OVER-S-F-Since-the-1989-2497705.php">https://www.sfgate.com/news/article/PALMS-POP-UP-ALL-OVER-S-F-Since-the-1989-2497705.php</a>)</li>
-        <li>San Francisco Street Tree List (<a href="https://data.sfgov.org/City-Infrastructure/Street-Tree-List/tkzw-k3nq/about_data">https://data.sfgov.org/City-Infrastructure/Street-Tree-List/tkzw-k3nq/about_data</a>)</li>
-        <li>SF Meets Goal of 25,000 Trees
-            (<a href="https://www.sfenvironment.org/press/sf-meets-goal-25000-trees">https://www.sfenvironment.org/press/sf-meets-goal-25000-trees</a>)</li>
-        <li>Urban Forest Plan (<a href="https://sfplanning.org/urban-forest-plan#about">https://sfplanning.org/urban-forest-plan#about</a>)</li>
-    </ul>
+        <h4>Data Source</h4>
+        <ul>
+            <li>San Francisco Street Tree List (<a href="https://data.sfgov.org/City-Infrastructure/Street-Tree-List/tkzw-k3nq/about_data">https://data.sfgov.org/City-Infrastructure/Street-Tree-List/tkzw-k3nq/about_data</a>)</li>
+        </ul>
+        <h4>Related Links</h4>
+        <ul>
+            <li>Loma Prieta: Looking Back on the Earthquake 33 Years Later
+                (<a href="https://www.nbcbayarea.com/news/local/loma-prieta-earthquake-33-years-later/3032484/">https://www.nbcbayarea.com/news/local/loma-prieta-earthquake-33-years-later/3032484/</a>)</li>
+            <li>Market Street palm trees start to do damage (<a href="https://abc7news.com/archive/6338096/">https://abc7news.com/archive/6338096/</a>)</li>
+                <li>PALMS POP UP ALL OVER S.F. (<a href="https://www.sfgate.com/news/article/PALMS-POP-UP-ALL-OVER-S-F-Since-the-1989-2497705.php">https://www.sfgate.com/news/article/PALMS-POP-UP-ALL-OVER-S-F-Since-the-1989-2497705.php</a>)</li>
+            <li>SF Meets Goal of 25,000 Trees
+                (<a href="https://www.sfenvironment.org/press/sf-meets-goal-25000-trees">https://www.sfenvironment.org/press/sf-meets-goal-25000-trees</a>)</li>
+            <li>Urban Forest Plan (<a href="https://sfplanning.org/urban-forest-plan#about">https://sfplanning.org/urban-forest-plan#about</a>)</li>
+        </ul>
     </div>
 
 
