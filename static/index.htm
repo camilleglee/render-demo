@@ -6,7 +6,7 @@
   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;600;700;800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;600;700;800;900&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         .neighborhood {
@@ -16,7 +16,7 @@
             opacity: 1;
         }
         body {
-            margin: 0 100 200 150;
+            margin: 0 100 200 220;
             padding: 0;
             font-family: 'Roboto', sans-serif;
         }
@@ -25,11 +25,23 @@
         }
         p {
             font-weight: 300;
-            font-size: 1.1em;
+            font-size: 1.3em;
             line-height: 1.5em;
         }
+        p.figure {
+            margin: 8 0 35 0;
+        }
+        p.warning {
+            color: #025FEF;
+            margin-top:5;
+            font-size: 1.3em;;
+        }
+        strong {
+            font-weight: 700;
+        }
         ul li {
-            line-height: 1.5em;
+            font-size: 1.1em;
+            line-height: 1.75em;
         }
         h1 {
             font-family: 'Roboto Condensed', sans-serif;    
@@ -42,44 +54,51 @@
         h2 {
             font-family: 'Roboto Condensed', sans-serif;    
             font-weight: 500;
-            font-size: 1.7em;
+            font-size: 1.75em;
             margin: 0 0 40 0;
             padding: 0;
             line-height: 1.3;
         }
         h3 {
-            font-size: 1.2em;
-            margin: 0; 
+            font-size: 1.4em;
+            margin: 0 0 5 0; 
             padding: 0;  
-            color: #264116;
+            color: #025FEF;
         }
         h4 {
-            font-size: 1.4em;
+            font-size: 1.55em;
             margin: 0;
         }
         hr {
-            border-top: 3px solid #264116;width:40%;margin-top: 35; margin-bottom: 30;
+            border-top: 3px solid #025FEF;
+            width:40%;
+            margin-top: 45; 
+            margin-bottom: 30;
         }
-        .captionContainer {
+        .heroContainer {
             width: 1203px;
-            height:700px;
+            height: 680px;
             background-color: white;
             background-size: cover;
-            background-image: url('embarcadero4.png');
+            background-image: url('embarcadero5.png');
             background-repeat: no-repeat;
             background-position:  right -530px top 0;
         }
         .caption {
-            padding:690px 0 0 0;text-align:right;font-size: .98em;
+            padding: 688px 0 0 0;
+            text-align:right;
+            font-size: .98em;
+            font-weight: bold;
         }
         .articleContainer {
-            width: 600px;float: left; margin-top:-600px;padding: 90 80 0 0;background-color: white;
+            width: 600px;
+            float: left; 
+            margin-top: -560px;
+            padding: 75 80 0 0;
+            background-color: white;
         }
         .palmMapContainer {
-            width: 700px; height: 700px; margin-top: -20px; float: left;
-        }
-        .allTreeContainer {
-            margin-top: 0; padding-top: 50px;clear: both;
+            width: 700px; height: 800px; float: left;
         }
         .allTreeContainer {
             margin-top: 0; padding-top: 50px;clear: both;
@@ -93,7 +112,7 @@
 <body>
     <div class="container">
         <!-- Caption for the photo -->
-        <div class="captionContainer">
+        <div class="heroContainer">
             <p class="caption">Ferry Building, 249 The Embarcadero, San Francisco, CA</p>
         </div>
         <!-- Article -->
@@ -101,34 +120,34 @@
             <div class="articleContainer">
                 <h1>The Great<br>San Francisco<br>Palm Controversy</h1>
                 <h2>Residents debate the merits of planting palm trees after the 1989 Loma Prieta earthquake</h2>
-                <div style="margin-left: 170px">
+                <div style="margin-left: 105;">
                     <p>
                         In 1989, the Loma Prieta earthquake shook San Francisco killing 63 people, injuring 3,757, 
-                        and causing an estimated $7 billion in property damage. This 5.9 magnitude earthquake is considered 
+                        and causing $7 billion in property damage. This 5.9 magnitude earthquake is considered 
                         the worst disaster to hit San Francisco since the great earthquake of 1906.
                     </p>
                     <p>
                         Part of the effort to rebuild San Francisco included planting trees. <strong>Figure 2</strong> displays 
-                        the number of trees planted from 1972 to 2022. (See warning below.) From 1990 to 2006, it has been reported 
-                        in the media that the City of San Francisco planted thousands of trees including hundreds of palms along 
-                        major thoroughfares and the eastern shorefront to beautify the city. In 2004, Mayor Newsom 
+                        the number of trees planted from 1972 to 2022. (See warning below.) From 1990 to 2006, the City of 
+                        San Francisco planted thousands of trees including hundreds of palms along major thoroughfares 
+                        and the eastern shorefront to beautify the city. In 2004, Mayor Gavin Newsom (now Governor)
                         launched the "Trees for Tomorrow" campaign pledging to plant 25,000 new trees within five years. 
                         In 2015, the city renewed it's commitment to urban forestry when the Board of Advisors authorized a 
                         comprehensive Urban Forest Plan.
                     </p>
-                    <p>    
+                    <p>
                         Some residents contested the city's choice to plant palms by citing the dangers of planting so many 
                         sunloving trees in Northen California, the lack of shade provided by palms, and 
                         the concern that San Francisco would lose its distinctiveness by emulating Southern California cities. 
                         In contrast, other residents were delighted to see palms in the city.
                     </p>
                     <hr>
-                    <h3>Warning about the data:</h3>
-                    <p style="color: #264116;margin-top:5;">
-                        <strong>Figure 1</strong> maps all the palm trees listed in San Francisco's Street Tree List. 
-                        The different marks indicate whether a palm has a date of planting or not. The database is missing the 
-                        date of planting for most palms. Without this data, it is not possible to determine the number of new 
-                        palms planted by year (<strong>Figure 3</strong>).
+                    <h3>Warning about the data</h3>
+                    <p class="warning">
+                        <strong>Figure 1</strong> plots all the palm trees listed in San Francisco's Street Tree List. 
+                        The different marks (larger dark green versus light green dots) indicate whether a palm has a date of planting or not. The database is missing the 
+                        date of planting for most palms. Without this data, it is not possible to accurately determine the number of new 
+                        palms planted by year in <strong>Figure 3</strong>.
                     </p>
                 </div>
             </div>
@@ -136,54 +155,53 @@
                     MAP (PALM TREES)
                  ----------------------- -->
             <div class="palmMapContainer">
-                <svg id="palmTrees" height="800" width="700" style="background: #fff;" >
+                <svg id="palmTrees" height="750" width="650" style="background: #fff;" >
                     <!-- Ferry Building -->
-                    <text x="550" y="235" fill="#DC381F">Ferry Building</text>
-                    <line x1="506" y1="36" x2="526" y2="36" style="stroke:#DC381F;stroke-width:2" />
-                    <line x1="526" y1="35" x2="526" y2="220" style="stroke:#DC381F;stroke-width:2" />
+                    <text x="510" y="221" fill="#DC381F">Ferry Building</text>
+                    <line x1="490" y1="36" x2="525" y2="36" style="stroke:#DC381F;stroke-width:2" />
+                    <line x1="489" y1="35" x2="489" y2="207" style="stroke:#DC381F;stroke-width:2" />
                     <!-- Title -->
-                    <text x="78" y="780" style="font-size: 1.4em;">Figure 1: All palm trees in San Francisco</text>
+                    <text x="82" y="730" style="font-size: 1.3em;">Figure 1: All palm trees in San Francisco</text>
                     <!-- Legend -->
-                    <circle cx="87" cy="720" r="8" fill="#264116" />
-                    <text x="105" y="726" fill="black">Palms with planting date</text>
-                    <circle cx="330" cy="720" r="6" fill="#4E9258" />
-                    <text x="346" y="726" fill="black">Palms without planting date</text>  
+                    <circle cx="87" cy="670" r="8" fill="#264116" />
+                    <text x="105" y="676" fill="black">Palms with planting date</text>
+                    <circle cx="330" cy="670" r="6" fill="#4E9258" />
+                    <text x="346" y="676" fill="black">Palms without planting date</text>  
                 </svg>
             </div>
-        </div>
+            </div>
 
     <!-- ---------------------------
             HISTOGRAM (ALL TREES)
          --------------------------- -->
     <div class="allTreeContainer">
         <h4>Figure 2: Annual Counts of All Trees Planted in San Francisco (1972-2022)</h4>
-        <p>NOTE: This data only charts the trees in the Street Tree List with a date of planting. Most trees do note have a date of planting.</p>
-        <svg id="allTreeHistogram" height="560" width="1300" >       
+        <p class="figure">Due to missing planting dates the histogram below undercounts the number of trees planted in the city.</p>
+        <svg id="allTreeHistogram" height="660" width="1300" >       
             <!-- 1989 Loma Prieta -->
             <text x="472" y="13" fill="#DC381F">Loma Prieta Earthquake</text>
             <text x="472" y="33" fill="#DC381F">October 17, 1989</text>
-            <text x="480" y="210" fill="#444" style="font-size: .8em;font-style:italic;">1990-2006: $1.9 million spent to plant trees</text>
-            <line x1="472" y1="47" x2="472" y2="500" style="stroke:#DC381F;stroke-width:2" />
+            <text x="480" y="255" fill="#444" style="font-size: .8em;font-style:italic;">1990-2006: $1.9 million spent on planting trees</text>
+            <line x1="472" y1="47" x2="472" y2="600" style="stroke:#DC381F;stroke-width:2" />
             <circle cx="472" cy="47" r="5" stroke="#DC381F" stroke-width="2" fill="#DC381F" />
-            <rect width="412" height="280" x="479" y="218" fill="#4E9258" opacity=".1" />
+            <rect width="412" height="333" x="479" y="267" fill="#4E9258" opacity=".15" />
             <!-- 2004 Trees for Tomorrow -->
             <text x="830" y="13" fill="#DC381F">Mayor Newsom authorizes</text>
             <text x="830" y="33" fill="#DC381F">Trees for Tomorrow (2004)</text>
-            <text x="843" y="53" fill="#444" style="font-size: .8em;font-style:italic;">2005-2010: 26,408 trees planted</text>
-            <line x1="830" y1="47" x2="830" y2="500" style="stroke:#DC381F;stroke-width:2" />
+            <text x="843" y="68" fill="#444" style="font-size: .8em;font-style:italic;">2005-2009: 26,408 trees planted</text>
+            <line x1="830" y1="47" x2="830" y2="600" style="stroke:#DC381F;stroke-width:2" />
             <circle cx="830" cy="47" r="5" stroke="#DC381F" stroke-width="2" fill="#DC381F" />
-            <rect width="121" height="440" x="843" y="60" fill="#4E9258" opacity=".1" />
+            <rect width="121" height="520" x="843" y="80" fill="#4E9258" opacity=".15" />
             <!-- 2015 Urban Forest Plan -->
             <text x="1097" y="13" fill="#DC381F">Board of Advisors approve</text>
             <text x="1097" y="33" fill="#DC381F">Urban Forest Plan (2015)</text>              
-            <line x1="1097" y1="47" x2="1097" y2="500" style="stroke:#DC381F;stroke-width:2" />
+            <line x1="1097" y1="47" x2="1097" y2="600" style="stroke:#DC381F;stroke-width:2" />
             <circle cx="1097" cy="47" r="5" stroke="#DC381F" stroke-width="2" fill="#DC381F" />
-            <rect width="195" height="260" x="1086" y="240" fill="#4E9258" opacity=".1" />
             <!-- Legend -->
-            <rect width="15" height="15" x="37" y="540" fill="#264116" />
-            <text x="60" y="553" fill="black">Palm trees</text>
-            <rect width="15" height="15" x="170" y="540" fill="#4E9258" />
-            <text x="193" y="553" fill="black">All other trees</text>                      
+            <rect width="15" height="15" x="37" y="640" fill="#264116" />
+            <text x="60" y="653" fill="black">Palm trees</text>
+            <rect width="15" height="15" x="170" y="640" fill="#4E9258" />
+            <text x="193" y="653" fill="black">All other trees</text>                      
         </svg>
     </div>
 
@@ -192,13 +210,13 @@
          ---------------------------- -->      
     <div class="palmTreeContainer">
         <h4>Figure 3: Annual Counts of Palm Trees Planted in San Francisco (1972-2022)</h4>
-        <p>Due to missing planting dates the histogram below undercounts the number of palms planted in the city.</p>
+        <p class="figure">Due to missing planting dates the histogram below undercounts the number of palm trees planted in the city.</p>
         <svg id="palmTreeHistogram" height="300" width="1300" >        
-        
+
         </svg>
     </div>
 
-    <!-- SOURCES -->
+    <!-- SOURCES & LINKS -->
     <div class="sourceContainer">
         <h4>Data Source</h4>
         <ul>
@@ -234,7 +252,7 @@
         const allChart = d3.select("svg#allTreeHistogram");
         const allWidth = allChart.attr("width");
         const allHeight = allChart.attr("height");
-        const allMargin = {top: 60, right: 20, bottom: 60, left: 40};
+        const allMargin = {top: 80, right: 20, bottom: 60, left: 40};
         const allChartWidth = allWidth - allMargin.left - allMargin.right;
         const allChartHeight = allHeight - allMargin.top - allMargin.bottom;
         
@@ -352,7 +370,7 @@
                 .call((g) => g.select(".domain").remove())
                 .call((g) => g.append("text")
                     .attr("x", -allMargin.left + 5)
-                    .attr("y", 10)
+                    .attr("y", 55)
                     .attr("fill", "currentColor")
                     .attr("text-anchor", "start")
                     .text("Number of Plantings"));
