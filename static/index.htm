@@ -39,6 +39,10 @@
         }
         b {
             font-weight: 500;
+            color: black;
+        }
+        b.note {
+            color: #025FEF;
         }
         ul li {
             font-size: 1.15em;
@@ -68,7 +72,7 @@
         }
         h4 {
             font-size: 1.55em;
-            margin: 0;
+            margin: 50 0 0 0;
         }
         div.heroContainer {
             width: 1203px;
@@ -133,13 +137,13 @@
                         Part of the effort to rebuild included planting trees. <b>Figure 2</b> displays 
                         the number of trees planted from 1972 to 2022. (See warning below.) From 1990 to 2006, 
                         San Francisco spent $1.9 million to plant thousands of trees including hundreds 
-                        of palms to beautify the city and promote tourisn. From 2004-2009, over 26,000 trees were planted 
-                        through the Trees for Tomorrow campaign..
+                        of palms to <mark>beautify</mark> the city and promote <mark>tourism</mark>. From 2004-2009, over 26,000 trees were planted 
+                        through the Trees for Tomorrow campaign.
                     </p>
                     <p>
-                        Some residents protested the city's choice to plant palms. They cited the dangers of 
-                        planting so many sunloving trees in Northen California, the lack of shade, and 
-                        the concern that San Francisco would lose its distinctiveness by emulating Southern 
+                        Some residents <b>protested</b> the city's choice to plant palms. They cited (1) the dangers of 
+                        planting <mark>fragile</mark> sunloving palms in Northen California, (2) the lack of <mark>shade</mark>, and 
+                        (3) the concern that San Francisco would lose its <mark>distinctiveness</mark> by emulating Southern 
                         California cities. In contrast, other residents were delighted to see palms in the city.
                     </p>
                     <div class="warningContainer">
@@ -178,7 +182,7 @@
          --------------------------- -->
     <div class="allTreeContainer">
         <h4>Figure 2: Annual Counts of All Trees Planted in San Francisco (1972-2022)</h4>
-        <p class="figure">Due to missing planting dates the histogram below undercounts the number of trees planted in the city.</p>
+        <p class="figure"><b class="note">NOTE:</b> Due to missing planting dates the histogram below undercounts the number of trees planted in the city.</p>
         <svg id="allTreeHistogram" height="660" width="1300" >       
             <!-- 1989 Loma Prieta -->
             <text x="472" y="13" fill="#DC381F">Loma Prieta Earthquake</text>
@@ -212,9 +216,11 @@
          ---------------------------- -->      
     <div class="palmTreeContainer">
         <h4>Figure 3: Annual Counts of Palm Trees Planted in San Francisco (1972-2022)</h4>
-        <p class="figure">Due to missing planting dates the histogram below undercounts the number of palm trees planted in the city.</p>
+        <p class="figure"><b class="note">NOTE:</b> Due to missing planting dates the histogram below undercounts the number of palm trees planted in the city.</p>
         <svg id="palmTreeHistogram" height="300" width="1300" >        
-
+            <!-- low count note -->
+            <text x="50" y="35" fill="#025FEF">Palm counts by year in Street Tree List are lower than expected due to missing planting dates.</text>
+            <circle cx="22" cy="32" r="18" stroke="#025FEF" stroke-width="2" fill="none" />
         </svg>
     </div>
 
@@ -468,7 +474,7 @@
                 .call((g) => g.select(".domain").remove())
                 .call((g) => g.append("text")
                     .attr("x", -palmMargin.left + 5)
-                    .attr("y", 10)
+                    .attr("y", 7) // distance of lable from top of chart
                     .attr("fill", "currentColor")
                     .attr("text-anchor", "start")
                     .text("Number of Plantings"));
